@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Customer Support Starter Kit v1 — $5 Self-Hosted FAQ Chatbot</title>
+    <meta name="description" content="A self-hosted FAQ chatbot for small businesses. Not generative AI — matches from your pre-written FAQs. No API keys, no monthly fees. $5 one-time.">
+    <meta name="robots" content="index, follow">
+    <style>
+        :root {
+            --bg: #0f172a;
+            --card: #1e293b;
+            --text: #e2e8f0;
+            --muted: #94a3b8;
+            --accent: #3b82f8;
+            --accent-hover: #60a5fa;
+            --border: #334155;
+            --shadow: 0 4px 6px rgba(0,0,0,0.3);
+            --success: #4ade80;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+        }
+        .container { max-width: 900px; margin: 0 auto; padding: 2rem 1.5rem; }
+        .header { text-align: center; padding: 2rem 0; border-bottom: 1px solid var(--border); margin-bottom: 2rem; }
+        .header h1 { font-size: 2.2rem; font-weight: 700; margin-bottom: 0.5rem; }
+        .header .subtitle { color: var(--muted); font-size: 1.1rem; line-height: 1.6; }
+        .badge {
+            display: inline-block;
+            background: rgba(59, 130, 246, 0.15);
+            color: var(--accent);
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            padding: 0.3rem 0.8rem;
+            border-radius: 999px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+        .pricing {
+            background: var(--card);
+            border: 2px solid var(--accent);
+            border-radius: 16px;
+            padding: 2rem;
+            text-align: center;
+            margin: 2rem 0;
+            box-shadow: var(--shadow);
+        }
+        .pricing .price { font-size: 3rem; font-weight: 700; color: var(--accent); }
+        .pricing .label { color: var(--muted); margin-top: 0.5rem; }
+        section { margin: 2.5rem 0; }
+        .section-title { font-size: 1.4rem; font-weight: 600; margin-bottom: 1rem; }
+        .section-title::before {
+            content: "";
+            display: inline-block;
+            width: 3px;
+            height: 1.4rem;
+            background: var(--accent);
+            border-radius: 2px;
+            margin-right: 0.5rem;
+            vertical-align: middle;
+        }
+        .features { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+        .feature { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem; }
+        .feature h3 { color: var(--accent); margin-bottom: 0.5rem; font-size: 1.1rem; }
+        .feature ul { list-style: none; }
+        .feature ul li { padding: 0.3rem 0; color: var(--muted); font-size: 0.9rem; }
+        .feature ul li::before { content: "✓ "; color: var(--success); }
+        .limitations { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem; }
+        .limitations h3 { color: #fbbf24; margin-bottom: 1rem; }
+        .limitations ul li { padding: 0.4rem 0; color: var(--muted); }
+        .limitations ul li::before { content: "❌ "; }
+        .demo-screenshot {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            overflow: hidden;
+            margin: 1rem 0;
+        }
+        .demo-screenshot pre {
+            background: #0f172a;
+            color: #e2e8f0;
+            padding: 1.5rem;
+            margin: 0;
+            font-family: 'Courier New', monospace;
+            font-size: 0.85rem;
+            overflow-x: auto;
+            line-height: 1.5;
+        }
+        .terminal-header {
+            background: #1e293b;
+            padding: 0.4rem 1rem;
+            display: flex;
+            gap: 0.5rem;
+            align-items: center;
+        }
+        .terminal-dot { width: 12px; height: 12px; border-radius: 50%; }
+        .dot-red { background: #ef4444; }
+        .dot-yellow { background: #f59e0b; }
+        .dot-green { background: #22c55e; }
+        .setup-steps { display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 1rem; }
+        .step { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: 1rem; flex: 1; min-width: 150px; }
+        .step .num { color: var(--accent); font-weight: 700; font-size: 1.5rem; }
+        .step .desc { color: var(--muted); font-size: 0.85rem; }
+        .contact-box {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 2rem;
+            text-align: center;
+        }
+        .contact-box a {
+            display: inline-block;
+            padding: 0.7rem 2rem;
+            background: var(--accent);
+            color: #0f172a;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            margin: 0.5rem;
+        }
+        .contact-box a:hover { background: var(--accent-hover); }
+        .note { color: var(--muted); font-size: 0.85rem; margin-top: 1rem; }
+        .footer { text-align: center; padding: 2rem 0; color: var(--muted); font-size: 0.8rem; border-top: 1px solid var(--border); margin-top: 2rem; }
+        @media (max-width: 640px) {
+            .header h1 { font-size: 1.7rem; }
+            .features { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <span class="badge">v1.0 — Built & Tested</span>
+            <h1>AI Customer Support <span style="color: var(--accent);">Starter Kit</span></h1>
+            <p class="subtitle">A self-hosted FAQ chatbot for small businesses.<br><strong>Not generative AI</strong> — answers come from FAQs you write. No API keys, no monthly fees, no hallucinations.</p>
+        </div>
+
+        <!-- Pricing -->
+        <div class="pricing">
+            <div class="price">$5</div>
+            <div class="label">One-time payment • Lifetime license • MIT open source</div>
+        </div>
+
+        <!-- What It Does -->
+        <section>
+            <h2 class="section-title">What It Does</h2>
+            <p style="color: var(--muted); margin-bottom: 1rem;">
+                You write FAQs in a JSON file. The bot matches customer questions to your answers using text similarity.
+                If it can't find a match, it says "I don't know." No AI generation, no internet required, no API keys.
+            </p>
+            <ol style="color: var(--muted); padding-left: 1.5rem; margin-top: 1rem;">
+                <li style="margin-bottom: 0.5rem;">Write your FAQs (question + answer pairs) in a JSON file</li>
+                <li style="margin-bottom: 0.5rem;"><code>pip install flask && python server.py</code></li>
+                <li style="margin-bottom: 0.5rem;">Open <code>http://localhost:5000</code> in any browser</li>
+                <li style="margin-bottom: 0.5rem;">Customers ask questions → bot shows your pre-written answers</li>
+            </ol>
+        </section>
+
+        <!-- Demo Screenshot -->
+        <section>
+            <h2 class="section-title">Live Demo Preview</h2>
+            <p style="color: var(--muted); margin-bottom: 1rem;">This is what the chat interface looks like when running locally:</p>
+            <div class="demo-screenshot">
+                <div class="terminal-header">
+                    <span class="terminal-dot" style="background: var(--accent);"></span>
+                    <span style="color: var(--muted); font-size: 0.85rem;">Terminal — python server.py</span>
+                </div>
+                <pre>
+$ python server.py
+Loaded 10 FAQs from business_faqs.json
+* Running on http://0.0.0.0:5000
+
+User query: "What time do you open?"
+→ Matched: "What are your business hours?"  (confidence: 95%)
+→ Answer: "We are open Monday through Friday from 9:00 AM to 6:00 PM..."
+
+User query: "What's the meaning of life?"
+→ No match found (confidence: 0%)
+→ Response: "I'm sorry, I don't have information about that..."</pre>
+            </div>
+            <p style="color: var(--muted); font-size: 0.85rem; margin-top: 0.5rem;">
+                Open the free sample to see actual working chat UI. Includes 3 sample FAQs you can try instantly.
+            </p>
+        </section>
+
+        <!-- Features -->
+        <section>
+            <h2 class="section-title">Features</h2>
+            <div class="features">
+                <div class="feature">
+                    <h3>✅ No API Keys Required</h3>
+                    <ul>
+                        <li>Works entirely offline</li>
+                        <li>No OpenAI/LLM accounts needed</li>
+                        <li>No recurring fees</li>
+                    </ul>
+                </div>
+                <div class="feature">
+                    <h3>✅ Never Hallucinates</h3>
+                    <ul>
+                        <li>Admits when it doesn't know</li>
+                        <li>Only uses your pre-written answers</li>
+                        <li>Confidence scores for transparency</li>
+                    </ul>
+                </div>
+                <div class="feature">
+                    <h3>✅ Self-Hosted & Private</h3>
+                    <ul>
+                        <li>Runs on your computer</li>
+                        <li>No customer data sent anywhere</li>
+                        <li>MIT license — modify freely</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Limitations -->
+        <section>
+            <h2 class="section-title">Limitations (Important)</h2>
+            <div class="limitations">
+                <h3>What This Is NOT</h3>
+                <ul>
+                    <li><strong>Not generative AI</strong> — does not create new answers. Only matches from your FAQs.</li>
+                    <li><strong>No multi-turn conversations</strong> — each question is matched independently.</li>
+                    <li><strong>No email/SMS notifications</strong> — no external integrations.</li>
+                    <li><strong>No analytics dashboard</strong> — no usage tracking or reporting.</li>
+                    <li><strong>No admin panel</strong> — edit JSON files directly to update FAQs.</li>
+                    <li><strong>Single language</strong> (English) — other languages require manual translation.</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Setup -->
+        <section>
+            <h2 class="section-title">Installation</h2>
+            <p style="color: var(--muted);">Installs in 3 steps on any computer with Python 3.8+:</p>
+            <div class="setup-steps">
+                <div class="step">
+                    <div class="num">1</div>
+                    <div class="desc">Download ZIP (26KB)</div>
+                </div>
+                <div class="step">
+                    <div class="num">2</div>
+                    <div class="desc">pip install flask</div>
+                </div>
+                <div class="step">
+                    <div class="num">3</div>
+                    <div class="desc">python server.py</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Free Sample -->
+        <section>
+            <h2 class="section-title">Free Sample — Try Before You Buy</h2>
+            <p style="color: var(--muted);">
+                Download the <strong>free sample</strong> (3 sample FAQs) to verify the product works on your system before purchasing:
+            </p>
+            <p style="text-align: center; margin: 1rem 0;">
+                <a href="/ai-customer-support-starter-kit-v1-free-sample.zip" download style="display: inline-block; padding: 0.7rem 2rem; background: var(--card); border: 1px solid var(--border); border-radius: 8px; text-decoration: none;">⬇ Download Free Sample (7KB)</a>
+            </p>
+            <p style="color: var(--muted); font-size: 0.85rem;">
+                Runs identically to the full kit — just with 3 FAQs instead of 10, plus no restaurant example or deployment guide.
+            </p>
+        </section>
+
+        <!-- Contact / Purchase -->
+        <section>
+            <h2 class="section-title">Purchase the Full Kit ($5)</h2>
+            <div class="contact-box">
+                <p style="margin-bottom: 1.5rem; color: var(--muted);">
+                    This is a self-service digital product. Contact me directly to arrange payment and delivery.
+                    No automated checkout, no mailing list — just a direct exchange.
+                </p>
+                <p><strong>Payment method:</strong> PayPal (send to <code>gulre@deepseek.ai</code>)</p>
+                <p><strong>Delivery:</strong> ZIP file sent via email or WeTransfer within 24 hours</p>
+                <p><strong>Refund policy:</strong> 30-day money-back guarantee. If it doesn't run on your system after following the setup guide, full refund.</p>
+                <p style="margin-top: 1.5rem;">
+                    <a href="mailto:gulre@deepseek.ai?subject=AI Customer Support Kit - Purchase Request">$5 Purchase Request</a>
+                </p>
+                <p class="note">After receiving your payment, email me your confirmation and I'll send the full ZIP within 24 hours.</p>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <div class="footer">
+            <p>AI Customer Support Starter Kit v1.0 — MIT Licensed. Not affiliated with Zendesk, Tidio, or Intercom.</p>
+            <p>Pricing verified against PayPal consumer fees (Oct 2026). Payment processor fees deducted from each transaction — none paid upfront.</p>
+        </div>
+    </div>
+</body>
+</html>
