@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Affordable AI Customer Support for Small Businesses — Early Concept</title>
+    <meta name="description" content="A simple, flat-rate AI customer support tool for small businesses priced out by Zendesk and Intercom. No usage fees, no per-resolution charges. Early concept — join our waitlist.">
+    <meta name="robots" content="noindex, follow">
+    <style>
+        :root {
+            --bg: #0f172a;
+            --bg-card: #1e293b;
+            --text: #e2e8f0;
+            --text-muted: #94a3b8;
+            --accent: #38bdf8;
+            --accent-hover: #7dd3fc;
+            --border: #334155;
+            --success: #4ade80;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 720px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
+        }
+
+        .header {
+            text-align: center;
+            padding: 2rem 0 1.5rem;
+        }
+
+        .badge {
+            display: inline-block;
+            background: rgba(56, 189, 248, 0.1);
+            color: var(--accent);
+            border: 1px solid var(--border);
+            padding: 0.3rem 0.9rem;
+            border-radius: 999px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            letter-spacing: 0.03em;
+        }
+
+        .headline {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-top: 1rem;
+            line-height: 1.3;
+        }
+
+        .headline span { color: var(--accent); }
+
+        .subhead {
+            font-size: 1.125rem;
+            color: var(--text-muted);
+            margin-top: 0.75rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .pricing-example {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.25rem;
+            margin: 1rem 0;
+            text-align: center;
+        }
+
+        .pricing-example .note {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-top: 0.5rem;
+        }
+
+        .problem-section, .solution-section, .audience-section {
+            margin: 2rem 0;
+        }
+
+        .section-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .section-title::before {
+            content: "";
+            width: 3px;
+            height: 1.25rem;
+            background: var(--accent);
+            border-radius: 2px;
+        }
+
+        .problem-list, .feature-list, .audience-list {
+            list-style: none;
+        }
+
+        .problem-list li, .feature-list li, .audience-list li {
+            padding: 0.6rem 0;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+        }
+
+        .problem-list li:last-child,
+        .feature-list li:last-child,
+        .audience-list li:last-child {
+            border-bottom: none;
+        }
+
+        .problem-list li::before,
+        .feature-list li::before {
+            content: "✓";
+            color: var(--success);
+            font-weight: 700;
+        }
+
+        .problem-list li::before {
+            color: #f87171;
+            content: "✕";
+        }
+
+        .disclaimer {
+            background: rgba(250, 189, 47, 0.1);
+            border: 1px solid rgba(250, 189, 47, 0.3);
+            border-radius: 8px;
+            padding: 0.85rem 1rem;
+            font-size: 0.85rem;
+            color: #fbbf24;
+            margin: 1.5rem 0;
+        }
+
+        .form-section {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 2rem;
+            margin: 2.5rem 0;
+        }
+
+        .form-title {
+            text-align: center;
+            font-size: 1.4rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .form-subtitle {
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.25rem;
+        }
+
+        label {
+            display: block;
+            font-size: 0.85rem;
+            font-weight: 500;
+            margin-bottom: 0.4rem;
+            color: var(--text);
+        }
+
+        input {
+            width: 100%;
+            padding: 0.7rem 1rem;
+            background: #0f172a;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            color: var(--text);
+            font-size: 0.95rem;
+            font-family: inherit;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.2);
+        }
+
+        input::placeholder {
+            color: var(--text-muted);
+        }
+
+        .form-note {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-top: 0.5rem;
+            text-align: center;
+        }
+
+        .form-note a {
+            color: var(--accent);
+        }
+
+        .footer {
+            text-align: center;
+            padding: 2rem 0;
+            color: var(--text-muted);
+            font-size: 0.8rem;
+        }
+
+        @media (max-width: 640px) {
+            .headline { font-size: 1.6rem; }
+            .container { padding: 1.5rem 1rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <span class="badge">Early Concept — Not Launched</span>
+            <h1 class="headline">AI Customer Support <span>for Small Businesses</span></h1>
+            <p class="subhead">A flat-rate AI chatbot that answers customer questions, qualifies leads, and handles FAQs — without usage fees or per-resolution charges that make Zendesk and Intercom too expensive for small teams.</p>
+        </div>
+
+        <!-- Pricing Comparison -->
+        <div class="pricing-example">
+            <div style="font-weight: 600; margin-bottom: 0.5rem;">What small businesses pay today:</div>
+            <div style="font-size: 1.5rem; color: var(--accent); margin-bottom: 0.25rem;">Zendesk: $19–115+/agent/month</div>
+            <div style="font-size: 1.5rem; color: var(--accent); margin-bottom: 0.25rem;">Intercom: $19–132+/seat/month + $0.99 per resolution</div>
+            <div style="font-size: 1.5rem; color: var(--accent);">Tidio: $24–300/month</div>
+            <div class="note">Verified prices from vendor websites (Oct 2026). All include unpredictable AI usage fees.</div>
+        </div>
+
+        <!-- Problem -->
+        <div class="problem-section">
+            <h2 class="section-title">The Problem</h2>
+            <p style="color: var(--text-muted); margin-bottom: 1rem;">Small businesses are priced out of customer-support software:</p>
+            <ul class="problem-list">
+                <li>Zendesk and Intercom scale to thousands per year for a 2-person team — far beyond most small business budgets.</li>
+                <li>AI usage fees (per-resolution charges from Intercom Fin, Zendesk Copilot) make bills spike unpredictably — "the better the AI works, the higher the bill."</li>
+                <li>Complex routing rules, shared inboxes, and admin overhead are designed for enterprise — not a shop with one owner handling support themselves.</li>
+            </ul>
+        </div>
+
+        <!-- Solution -->
+        <div class="solution-section">
+            <h2 class="section-title">The Proposed Solution</h2>
+            <p style="color: var(--text-muted); margin-bottom: 1rem;">A simple AI customer-support toolkit built for small businesses:</p>
+            <ul class="feature-list">
+                <li><strong>Flat monthly rate</strong> — no per-resolution fees, no usage tiers, no surprise bills.</li>
+                <li><strong>Pre-trained for common small-business workflows</strong> — FAQs, order lookups, appointment booking, return requests.</li>
+                <li><strong>Multi-channel support</strong> — web chat widget, WhatsApp, and email auto-responses in one place.</li>
+                <li><strong>No-code setup</strong> — install the widget with a 3-minute copy-paste, train the AI by pasting your FAQs.</li>
+            </ul>
+        </div>
+
+        <!-- Audience -->
+        <div class="audience-section">
+            <h2 class="section-title">Intended Audience</h2>
+            <p style="color: var(--text-muted); margin-bottom: 1rem;">This concept targets:</p>
+            <ul class="audience-list">
+                <li>Independent e-commerce stores (Shopify, Daraz.pk) with 1–5 staff.</li>
+                <li>Local service businesses (salons, repair shops, consultants) handling their own customer messages.</li>
+                <li>Small agencies managing support for 2–3 client websites.</li>
+            </ul>
+        </div>
+
+        <!-- Disclaimer -->
+        <div class="disclaimer">
+            <strong>Note:</strong> This is an early concept, not a launched product. I'm a solo developer validating demand before building. No code has been written yet, no AI model is live, and no customers exist. If enough small-business owners express genuine interest, I'll build an MVP using free-tier APIs (OpenRouter/Ollama) and publish it here. You'll only hear from me if the tool is actually available.
+        </div>
+
+        <!-- Email Form -->
+        <div class="form-section">
+            <div class="form-title">Join the early-access waitlist</div>
+            <div class="form-subtitle">No spam. Unsubscribe anytime. We'll only contact you if this tool is built.</div>
+
+            <!-- WARNING: This form does not collect emails. -->
+            <!-- No backend service is configured. See explanation below. -->
+            <!-- Email collection requires a verified free service. Currently none is set up. -->
+
+            <div style="background: rgba(250, 189, 47, 0.05); border: 1px solid rgba(250, 189, 47, 0.2); border-radius: 8px; padding: 1rem; margin: 1rem 0; text-align: center;">
+                <div style="font-size: 0.85rem; color: var(--text-muted);">
+                    Email collection is not yet available.<br>
+                    This static form has no backend to store submissions.<br>
+                    Please use the <a href="mailto:freetouse4444@gmail.com" style="color: var(--accent);">contact link</a> below,<br>
+                    or bookmark this page and check back in 30 days.
+                </div>
+            </div>
+
+            <div style="margin-top: 1.5rem; text-align: center;">
+                <a href="mailto:freetouse4444@gmail.com?subject=AI%20Customer%20Support%20Waitlist%20Interest"
+                   style="display: inline-block; padding: 0.6rem 1.5rem; background: var(--accent); color: #0f172a; border-radius: 8px; font-weight: 600; text-decoration: none;">
+                    Express Interest via Email
+                </a>
+            </div>
+
+            <p class="form-note">
+                This page collects <strong>only your email address</strong> if the form were active. We do not collect names, company names, phone numbers, or any other personal data. <a href="#" onclick="alert('No data is collected. This is a static HTML page with no backend.'); return false;">Privacy info</a>
+            </p>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            <p>A validation experiment by a solo developer. No product exists yet.</p>
+            <p>Pricing data verified directly from vendor websites on 2026-10-23.</p>
+            <p><a href="mailto:freetouse4444@gmail.com" style="color: var(--accent);">Contact</a></p>
+        </div>
+    </div>
+</body>
+</html>
